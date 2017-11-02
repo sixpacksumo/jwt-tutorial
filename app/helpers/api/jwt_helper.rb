@@ -1,9 +1,11 @@
 module Api::JwtHelper
   KEY = '5d09d47029e9c59fdb4477e5f'
   HMAC_SECRET = '48f7e5c6d24cea223730a261bdeca25153f9ca15d5505257741ca561ce3d1eda32fcd6b06aab81a2804bc2803b89e0ed160602e912d1abfa75377d979e94ab92'
+  DEFAULT_EXPIRY = 15 # minutes
 
   def create_jwt(payload)
     payload[:key] = KEY
+    payload[:exp] = DEFAULT_EXPIRY.minutes.from_now
     JWT.encode(payload, HMAC_SECRET, 'HS256')
   end
 
