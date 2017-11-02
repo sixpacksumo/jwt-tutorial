@@ -3,10 +3,11 @@
 # Table name: admins
 #
 #  id              :integer          not null, primary key
-#  adminname        :text
+#  username        :text
 #  password_digest :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  uid             :text             not null
 #
 
 class Admin < ApplicationRecord
