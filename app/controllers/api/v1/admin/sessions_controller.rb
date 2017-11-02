@@ -1,6 +1,11 @@
 class Api::V1::Admin::SessionsController < Api::V1::Admin::AppController
   def sign_in
-    render_success(create_jwt({ username: 'sakko' }))
+    admin = ::Admin.find_by_username(params[:username]).try(:authenticate, params[:password])
+    if admin
+      render_success(create_jwt({ username: admin.username }))
+    else
+      render_error('Incorrect login information', 400)
+    end
   end
 
   def sign_out
