@@ -1,4 +1,5 @@
 class Api::AppController < ActionController::API
+  include Api::AxJwt
 
   def render_success(data)
     res = { status: 200, data: data }
