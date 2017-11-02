@@ -5,12 +5,12 @@ module Api::JwtHelper
 
   def create_jwt(payload)
     payload[:key] = KEY
-    payload[:exp] = DEFAULT_EXPIRY.minutes.from_now
+    payload[:exp] = DEFAULT_EXPIRY.minutes.from_now.to_i
     JWT.encode(payload, HMAC_SECRET, 'HS256')
   end
 
   def extract_payload(token)
-    JWT.decode(token, HMAC_SECRET, true, { algorithm: 'HS256' }).first
+    JWT.decode(token, HMAC_SECRET, true, { algorithm: 'HS256' }).first.with_indifferent_access
   end
 
   def extract_key(token, verify=true)

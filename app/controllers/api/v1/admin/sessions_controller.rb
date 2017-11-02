@@ -9,6 +9,9 @@ class Api::V1::Admin::SessionsController < Api::V1::Admin::AppController
   end
 
   def sign_out
-    render_success(extract_key(params[:token], false))
+    uid = extract_payload(params[:token])[:uid] rescue nil
+    admin = ::Admin.find_by_uid(uid) if uid.present?
+    admin.generate_uid(true, true) if admin.present?
+    render_success({ success: true })
   end
 end
