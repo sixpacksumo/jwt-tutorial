@@ -4,11 +4,11 @@ class Api::V1::Admin::SessionsController < Api::V1::Admin::AppController
     if admin
       render_success({ token: create_jwt({ uid: admin.uid })})
     else
-      render_error('Incorrect login information', 400)
+      render_error('Incorrect login information', :bad_request)
     end
   end
 
   def sign_out
-    render_success(extract_key(params[:token],false))
+    render_success(extract_key(params[:token], false))
   end
 end

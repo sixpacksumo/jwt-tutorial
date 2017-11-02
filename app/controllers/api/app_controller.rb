@@ -4,12 +4,10 @@ class Api::AppController < ApplicationController
   include Api::JwtHelper
 
   def render_success(data)
-    res = { status: 200, data: data }
-    res[:length] = data.count if data.is_a?(Array)
-    render json: res
+    render json: data, status: :ok
   end
 
   def render_error(errors, code)
-    render json: { status: code, errors: errors}
+    render json: {errors: errors}, status: code
   end
 end
